@@ -8,6 +8,10 @@ To run:
     -enter password on line 48
     -enter last four digits of social on line 121
 
+This bot currently runs the multiplication table category.
+Storing answers in lists and dictionaries would enable it to run different categories (English Grammar would be simple).
+Could add the ability for users to input desired category at beginning of session.
+ 
 '''
 
 
