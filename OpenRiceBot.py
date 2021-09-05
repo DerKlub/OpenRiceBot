@@ -1,5 +1,5 @@
 '''
-Welcome to Open Rice Bot. We are glad you joined our mission to bankrupt the United Nations World Food Programme.
+Welcome to Open Rice Bot. We are glad you joined our mission to bankrupt the United Nations und den Welthunger enden!
 
 To run: 
     -download FireFox
