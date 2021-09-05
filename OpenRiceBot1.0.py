@@ -1,6 +1,9 @@
 '''
 Welcome to Open Rice Bot. We are glad you joined our mission to bankrupt the United Nations und den Welthunger enden!
 
+Join our group using code 5DLN5PAE
+https://freerice.com/groups 
+
 To run: 
     -download FireFox
     -pip install selenium
