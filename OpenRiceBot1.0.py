@@ -6,15 +6,15 @@ https://freerice.com/groups
 
 To run: 
     -download FireFox
+    -download GeckoDriver and add to PATH
     -pip install selenium
-    -enter username on line 43 
-    -enter password on line 48
-    -enter last four digits of social on line 121
+    -enter username, password, and last 4 digits of your social when prompted :)
 
 This bot currently runs the multiplication table category.
 Storing answers in lists and dictionaries would enable it to run different categories (English Grammar would be simple).
 Could add the ability for users to input desired category at beginning of session.
- 
+
+Goal is to build a standalone executable file that is downloaded in package containing all necessary files (and will automatically add itself to PATH if necessary)
 '''
 
 
@@ -23,6 +23,23 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import requests
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow
+import sys
+
+
+
+
+print("Welcome to Open Rice Bot\n\n")   #maybe some ascii art of rice and robots :)
+username = input("Please enter your freerice.com username: ")
+password = input("Please enter your password: ")
+gov_id = input("Please enter last four digits of your social security number: (y/n)")
+headless = True
+
+
+#username = "Frau_Gygax"
+#password ="mehrdeutsch"
+
 
 
 class RiceBot:
@@ -33,6 +50,8 @@ class RiceBot:
     def openBrowser(self):
         self.options = webdriver.FirefoxOptions()
 
+        if headless == True:
+            self.options.add_argument("--headless")
         
         self.driver = webdriver.Firefox(options=self.options)  
 
@@ -45,14 +64,14 @@ class RiceBot:
         self.driver.find_element_by_xpath("/html/body/div/section/div/div[1]/div/div[2]/div/div[2]/button").click()
 
 
-        username = self.driver.find_element_by_id("login-username")
-        username.clear()
-        username.send_keys("") #Your username
+        login_username = self.driver.find_element_by_id("login-username")
+        login_username.clear()
+        login_username.send_keys(username) #Your username
 
 
-        password = self.driver.find_element_by_id("login-password")
-        password.clear()
-        password.send_keys("") #Your Password 
+        login_password = self.driver.find_element_by_id("login-password")
+        login_password.clear()
+        login_password.send_keys(password) #Your Password 
 
         self.driver.find_element_by_xpath("/html/body/div/section/div/div[1]/div/div[2]/div/div/div[2]/button").click()
         time.sleep(0.5)
@@ -69,6 +88,22 @@ class RiceBot:
 
     def quitBrowser(self):
         self.driver.close()  
+
+    def joinGroup(self):
+        time.sleep(0.5)
+        self.driver.find_element_by_class_name('toolbar__menu-toggle-icon').click()
+        time.sleep(0.5)
+        self.driver.find_element_by_xpath('/html/body/div/nav/div/nav/ul/li[5]/div/a').click()
+
+        group_code = self.driver.find_element_by_id("group-code")
+        group_code.clear()
+        group_code.send_keys("5DLN5PAE")
+        time.sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div/section/div/div[1]/div/div[2]/div/div[3]/div[3]/div/button').click()
+        time.sleep(5)
+        
+
+
 
     def answerFrage(self, grains, elapsed):
         while True:
@@ -116,7 +151,7 @@ class RiceBot:
                         
                         continue              
                 
-                time.sleep(1.3)
+                time.sleep(2)
                 break
                 
 
@@ -125,10 +160,16 @@ class RiceBot:
 
     
 
-gov_id = ""  #last four digits of social
 grains = 0
 start = time.time()
 rb = RiceBot()
+
+
+#rb.joinGroup()
+
+
+
+
 
 while True:
     try:
@@ -156,4 +197,4 @@ while True:
         grains = 0
         start = time.time()
 
-        
+
